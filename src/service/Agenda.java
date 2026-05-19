@@ -49,7 +49,7 @@ public class Agenda {
 
     public boolean verificarTelefone(List<Contato> listaContatos, String telefone){
         for(Contato contato : listaContatos){
-            if(contato instanceof ContatoTelefonico){ //instanceof verifica se um objeto é de um determinado tipo/classe. "“O objeto guardado em contato é um ContatoTelefone?”
+            if(contato instanceof ContatoTelefonico){ //Instanceof verifica se um objeto é de um determinado tipo/classe. "“O objeto guardado em contato é um ContatoTelefone?”
                 ContatoTelefonico contatoTele = (ContatoTelefonico) contato;
                 if(contatoTele.getTelefone().equals(telefone))
                     return true;
@@ -60,12 +60,11 @@ public class Agenda {
 
     public boolean verificarEmail(List<Contato> listaContatos, String email){
         for(Contato contato : listaContatos){
-           if(contato instanceof ContatoEmail){
-               ContatoEmail contatoEm = (ContatoEmail) contato;
+           if(contato instanceof ContatoEmail contatoEm){
+               //ContatoEmail contatoEm = (ContatoEmail) contato;
                if(contatoEm.getEmail().equals(email)){
                    return true;
                }
-
            }
         }
         return false;
