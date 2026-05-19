@@ -5,13 +5,11 @@ public class ContatoTelefonico extends Contato{
 
     public ContatoTelefonico(String nome, Integer ID, String telefone){
         super(nome, ID);
+        this.telefone = telefone;
     }
 
     public String getTelefone(){
         return telefone;
-    }
-    public void setTelefone(String telefone){
-        this.telefone = telefone;
     }
 
     public String getTipo(){

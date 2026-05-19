@@ -16,14 +16,14 @@ public class Main {
             exibirMenu();
             opcao = lerOpcao(userInput);
             processarOpcao(opcao, userInput);
-        }while(opcao != 6);
+        }while(opcao != 7);
 
     }
 
     public static void exibirMenu(){
         System.out.println("=== AGENDA ===");
-        System.out.println("[1] Criar novo contato\n[2] Listar contatos \n[3] Procurar contato\n[4] Atualizar contato\n[5] Deletar contato\n[6] Sair");
-        System.out.print("Insira uma opção: ");
+        System.out.println("[1] Criar novo contato\n[2] Listar contatos \n[3] Relatório de Contatos\n[4] Procurar contato\n[5] Atualizar contato\n[6] Deletar contato\n[7] Sair");
+        System.out.print("Insira uma opção: \n");
     }
 
     public static int lerOpcao(Scanner userInput){
@@ -42,13 +42,16 @@ public class Main {
             case 2:
                 exibirContatos();
                 break;
+            case 3:
+                exibirRelatorio();
+                break;
         }
     }
 
     public static void exibirCadastro(Scanner userInput){
         System.out.println("[ INSIRA AS INFORMAÇÕES DO CONTATO ]");
         System.out.print("Nome: ");
-        String nome = userInput.nextLine();
+        String nome = userInput.nextLine().toUpperCase();
 
         Contato contato;
 
@@ -57,22 +60,34 @@ public class Main {
         if(tipo == 1){
             System.out.print("Telefone: ");
             String telefone = userInput.nextLine();
+            while(agenda.verificarTelefone(agenda.getListaContatos(), telefone)){
+                System.out.println("Número de telefone já cadastrado! Tente novamente: ");
+                telefone = userInput.nextLine();
+            }
             contato = new ContatoTelefonico(nome, contagemID++ , telefone);
 
             agenda.cadastrarContato(contato);
-            System.out.print("Contato cadastrado com sucesso!");
+            System.out.print("Contato cadastrado com sucesso!\n\n");
         }else{
             System.out.print("E-mail: ");
             String email = userInput.nextLine();
+            while(agenda.verificarEmail(agenda.getListaContatos(), email)){
+                System.out.println("Email já cadastrado! Tente novamente: ");
+                email = userInput.nextLine();
+            }
             contato = new ContatoEmail(nome, contagemID++, email);
 
             agenda.cadastrarContato(contato);
-            System.out.println("Contato cadastrado com sucesso!");
+            System.out.println("Contato cadastrado com sucesso!\n\n");
         }
     }
 
     public static void exibirContatos(){
         agenda.listarContatos();
+    }
+
+    public static void exibirRelatorio(){
+        agenda.relatorioContatos();
     }
 }
 

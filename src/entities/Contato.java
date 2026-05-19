@@ -12,14 +12,8 @@ abstract public class Contato {
     public String getNome(){
         return nome;
     }
-    public void setNome(String nome){
-        this.nome = nome;
-    }
 
     public Integer getID() {
         return ID;
-    }
-    public void setID(Integer ID) {
-        this.ID = ID;
     }
 }

@@ -5,14 +5,11 @@ public class ContatoEmail extends Contato{
 
     public ContatoEmail(String nome, Integer ID, String email){
         super(nome, ID);
+        this.email = email;
     }
 
     public String getEmail(){
         return email;
-    }
-
-    public void setEmail(String email){
-        this.email = email;
     }
 
     public String getTipo(){
