@@ -52,7 +52,13 @@ public class Main {
         System.out.println("[ INSIRA AS INFORMAÇÕES DO CONTATO ]");
         System.out.print("Nome: ");
         String nome = userInput.nextLine().toUpperCase();
+        do{
+            if(!agenda.validarNome(nome)){
+                System.out.println("Nome inválido! Tente novamente: ");
+                nome = userInput.nextLine().toUpperCase();
+            }
 
+        }while(!agenda.validarNome(nome));
         Contato contato;
 
         System.out.println("Tipo de Contato -- [1] Telefone [2] E-mail");

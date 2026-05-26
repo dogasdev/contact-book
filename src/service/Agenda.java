@@ -69,4 +69,11 @@ public class Agenda {
         }
         return false;
     }
+
+    public boolean validarNome(String nome){
+        if(nome != null && nome.trim().length() >= 4){
+            return true;
+        }
+        return false;
+    }
 }
