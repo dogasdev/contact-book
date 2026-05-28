@@ -3,6 +3,7 @@ import entities.Contato;
 import entities.ContatoEmail;
 import entities.ContatoTelefonico;
 import service.Agenda;
+import util.Validacao;
 
 public class Main {
     private static int contagemID = 1;
@@ -51,14 +52,11 @@ public class Main {
     public static void exibirCadastro(Scanner userInput){
         System.out.println("[ INSIRA AS INFORMAÇÕES DO CONTATO ]");
         System.out.print("Nome: ");
-        String nome = userInput.nextLine().toUpperCase();
-        do{
-            if(!agenda.validarNome(nome)){
-                System.out.println("Nome inválido! Tente novamente: ");
-                nome = userInput.nextLine().toUpperCase();
-            }
-
-        }while(!agenda.validarNome(nome));
+        String nome = userInput.nextLine().toUpperCase().trim();
+        while(!Validacao.validarNome(nome)){
+            System.out.println("Nome inválido! Tente novamente: ");
+            nome = userInput.nextLine().toUpperCase().trim();
+        }
         Contato contato;
 
         System.out.println("Tipo de Contato -- [1] Telefone [2] E-mail");
@@ -66,7 +64,11 @@ public class Main {
         if(tipo == 1){
             System.out.print("Telefone: ");
             String telefone = userInput.nextLine();
-            while(agenda.verificarTelefone(agenda.getListaContatos(), telefone)){
+            while(!Validacao.validarTelefone(telefone)){
+                System.out.println("Número inválido! Tente novamente: ");
+                telefone = userInput.nextLine();
+            }
+            while(Validacao.verificarTelefone(agenda.getListaContatos(), telefone)){
                 System.out.println("Número de telefone já cadastrado! Tente novamente: ");
                 telefone = userInput.nextLine();
             }
@@ -77,7 +79,7 @@ public class Main {
         }else{
             System.out.print("E-mail: ");
             String email = userInput.nextLine();
-            while(agenda.verificarEmail(agenda.getListaContatos(), email)){
+            while(Validacao.verificarEmail(agenda.getListaContatos(), email)){
                 System.out.println("Email já cadastrado! Tente novamente: ");
                 email = userInput.nextLine();
             }
