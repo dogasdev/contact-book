@@ -20,6 +20,21 @@ public class Validacao {
         return telefone.matches("\\d{10,11}");
     }
 
+    public static String formatarTelefone(String telefone){
+        telefone = telefone.replaceAll("\\D", "");
+
+        String ddd = telefone.substring(0, 2);
+        String sufix = telefone.substring(2);
+        if(telefone.length() == 10){
+            sufix = "9" + sufix;
+        }
+
+        telefone = String.format("(%s) %s-%s", //DDD, NONO DIGITO, PRIMEIRO SUFIXO, SEGUNDO SUFIXO
+                ddd, sufix.substring(0, 5), sufix.substring(5));
+
+        return telefone;
+    }
+
     public static boolean verificarTelefone(List<Contato> listaContatos, String telefone){
         for(Contato contato : listaContatos){
             if(contato instanceof ContatoTelefonico){ //Instanceof verifica se um objeto é de um determinado tipo/classe. "“O objeto guardado em contato é um ContatoTelefone?”
