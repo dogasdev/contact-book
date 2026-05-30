@@ -31,7 +31,6 @@ public class Agenda {
         System.out.println("Total de contatos com email: " + totalEmail);
     }
 
-
     public void cadastrarContato(Contato contato) {
         listaContatos.add(contato);
     }

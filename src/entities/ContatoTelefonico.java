@@ -1,4 +1,5 @@
 package entities;
+import util.Validacao;
 
 public class ContatoTelefonico extends Contato{
     private String telefone;

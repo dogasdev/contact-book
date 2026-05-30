@@ -1,5 +1,4 @@
 package util;
-
 import entities.Contato;
 import entities.ContatoEmail;
 import entities.ContatoTelefonico;
@@ -12,9 +11,7 @@ public class Validacao {
         }
         return false;
     }
-    /*
-    TODO: FAZER A FORMATAÇÃO DO NÚMERO DE TELEFONE
-     */
+
     public static boolean validarTelefone(String telefone){
         telefone = telefone.replaceAll("\\D", ""); //REMOÇÃO DE TUDO QUE NÃO SEJA DIGITO
         if(telefone.matches("\\d{10,11}")){

@@ -18,7 +18,6 @@ public class Main {
             opcao = lerOpcao(userInput);
             processarOpcao(opcao, userInput);
         }while(opcao != 7);
-
     }
 
     public static void exibirMenu(){
