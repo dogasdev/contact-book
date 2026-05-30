@@ -9,7 +9,7 @@ public class ContatoTelefonico extends Contato{
     }
 
     public String getTelefone(){
-        return telefone;
+        return Validacao.formatarTelefone(this.telefone);
     }
 
     public String getTipo(){
