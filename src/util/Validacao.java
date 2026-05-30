@@ -16,8 +16,11 @@ public class Validacao {
     TODO: FAZER A FORMATAÇÃO DO NÚMERO DE TELEFONE
      */
     public static boolean validarTelefone(String telefone){
-        telefone = telefone.replaceAll("[()\\s-]", "");
-        return telefone.matches("\\d{10,11}");
+        telefone = telefone.replaceAll("\\D", ""); //REMOÇÃO DE TUDO QUE NÃO SEJA DIGITO
+        if(telefone.matches("\\d{10,11}")){
+            return true;
+        }
+        return false;
     }
 
     public static String formatarTelefone(String telefone){
