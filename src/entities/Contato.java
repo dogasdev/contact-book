@@ -1,12 +1,13 @@
 package entities;
 
-abstract public class Contato {
+abstract public class Contato{
+    private static int contadorID = 1;
     private String nome;
     private Integer ID;
 
-    public Contato(String nome, Integer ID){
+    public Contato(String nome){
         this.nome = nome;
-        this.ID = ID;
+        this.ID = contadorID++;
     }
 
     public String getNome(){

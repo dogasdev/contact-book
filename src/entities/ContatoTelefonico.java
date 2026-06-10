@@ -4,8 +4,8 @@ import util.Validacao;
 public class ContatoTelefonico extends Contato{
     private String telefone;
 
-    public ContatoTelefonico(String nome, Integer ID, String telefone){
-        super(nome, ID);
+    public ContatoTelefonico(String nome, String telefone){
+        super(nome);
         this.telefone = telefone;
     }
 

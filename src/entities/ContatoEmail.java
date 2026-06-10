@@ -3,8 +3,8 @@ package entities;
 public class ContatoEmail extends Contato{
     private String email;
 
-    public ContatoEmail(String nome, Integer ID, String email){
-        super(nome, ID);
+    public ContatoEmail(String nome, String email){
+        super(nome);
         this.email = email;
     }
 

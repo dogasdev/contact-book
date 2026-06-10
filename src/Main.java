@@ -6,7 +6,6 @@ import service.Agenda;
 import util.Validacao;
 
 public class Main {
-    private static int contagemID = 1;
     private static Agenda agenda = new Agenda();
 
     public static void main(String[] args) {
@@ -71,7 +70,7 @@ public class Main {
                 System.out.println("Número de telefone já cadastrado! Tente novamente: ");
                 telefone = userInput.nextLine();
             }
-            contato = new ContatoTelefonico(nome, contagemID++ , telefone);
+            contato = new ContatoTelefonico(nome, telefone);
 
             agenda.cadastrarContato(contato);
             System.out.print("Contato cadastrado com sucesso!\n\n");
@@ -82,7 +81,7 @@ public class Main {
                 System.out.println("Email já cadastrado! Tente novamente: ");
                 email = userInput.nextLine();
             }
-            contato = new ContatoEmail(nome, contagemID++, email);
+            contato = new ContatoEmail(nome, email);
 
             agenda.cadastrarContato(contato);
             System.out.println("Contato cadastrado com sucesso!\n\n");
