@@ -66,7 +66,7 @@ public class Main {
                 System.out.println("Número inválido! Tente novamente: ");
                 telefone = userInput.nextLine();
             }
-            while(Validacao.verificarTelefone(agenda.getListaContatos(), telefone)){
+            while(Validacao.telefoneExists(agenda.getListaContatos(), telefone)){
                 System.out.println("Número de telefone já cadastrado! Tente novamente: ");
                 telefone = userInput.nextLine();
             }
@@ -77,14 +77,17 @@ public class Main {
         }else{
             System.out.print("E-mail: ");
             String email = userInput.nextLine();
-            while(Validacao.verificarEmail(agenda.getListaContatos(), email)){
-                System.out.println("Email já cadastrado! Tente novamente: ");
+            while(!Validacao.isValidEmail(email)){
+                System.out.println("E-mail inválido! Tente novamente: ");
+                email = userInput.nextLine();
+            }
+            while(Validacao.emailExists(agenda.getListaContatos(), email)){
+                System.out.println("E-mail já cadastrado! Tente novamente:");
                 email = userInput.nextLine();
             }
             contato = new ContatoEmail(nome, email);
-
             agenda.cadastrarContato(contato);
-            System.out.println("Contato cadastrado com sucesso!\n\n");
+            System.out.println("Contato de e-mail cadastrado com sucesso!\n\n");
         }
     }
 
