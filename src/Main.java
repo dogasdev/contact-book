@@ -90,7 +90,6 @@ public class Main {
             System.out.println("Contato de e-mail cadastrado com sucesso!\n\n");
         }
     }
-
     public static void exibirContatos(){
         agenda.listarContatos();
     }

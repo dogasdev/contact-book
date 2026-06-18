@@ -61,9 +61,9 @@ public class Validacao {
     public static boolean isValidEmail(String email){
         final String emailPattern = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@" + "(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
 
-        if(email.length() > 6){
-            if(email.matches(emailPattern)){ //é possível simplificar apenas colocando return email.matches(emailPattern)
-                return true;
+        if(email.length() > 6) {
+            if (email.matches(emailPattern)) { //é possível simplificar apenas colocando return email.matches(emailPattern)
+                return true; //matches verifica se a string segue um padrão
             }
         }
         return false;
