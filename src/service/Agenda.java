@@ -2,7 +2,6 @@ package service;
 import entities.Contato;
 import entities.ContatoEmail;
 import entities.ContatoTelefonico;
-
 import java.util.List;
 import java.util.ArrayList;
 
@@ -44,4 +43,22 @@ public class Agenda {
             System.out.println("Nenhum contato cadastrado!");
         }
     }
+
+    public List<Contato> buscarContatosPorNome(List<Contato> listaDeContatos, String nome){
+        if(!listaDeContatos.isEmpty()){
+            List<Contato> contatosEncontrados = new ArrayList<>();
+            for(Contato contato : listaDeContatos){
+                if(contato.getNome().equalsIgnoreCase(nome)){
+                    contatosEncontrados.add(contato);
+                }
+            }
+            return contatosEncontrados;
+        }
+        return null;
+    }
+
+    public void modificarContato(List<Contato> listaContatos){
+
+    }
 }
+
