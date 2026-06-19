@@ -4,6 +4,7 @@ import entities.ContatoEmail;
 import entities.ContatoTelefonico;
 import service.Agenda;
 import util.Validacao;
+import java.util.List;
 
 public class Main {
     private static Agenda agenda = new Agenda();
@@ -43,6 +44,9 @@ public class Main {
                 break;
             case 3:
                 exibirRelatorio();
+                break;
+            case 4:
+                buscarContato(userInput);
                 break;
         }
     }
@@ -90,12 +94,34 @@ public class Main {
             System.out.println("Contato de e-mail cadastrado com sucesso!\n\n");
         }
     }
+
     public static void exibirContatos(){
         agenda.listarContatos();
     }
 
     public static void exibirRelatorio(){
         agenda.relatorioContatos();
+    }
+
+    public static void buscarContato(Scanner userInput){
+        System.out.print("Insira o nome do contato que deseja procurar: ");
+        String nome = userInput.nextLine().toUpperCase();
+
+        List<Contato> contatosEncontrados = agenda.buscarContatosPorNome(agenda.getListaContatos(), nome);
+        if(contatosEncontrados != null && !contatosEncontrados.isEmpty()){
+            System.out.println("[ CONTATOS ENCONTRADOS ]");
+            for(int i = 0; i < contatosEncontrados.size(); i++) {
+                System.out.println(contatosEncontrados.get(i));
+            }
+        }else{
+            System.out.println("Nenhum contato encontrado.");
+        }
+    }
+
+    public static void exibirModificarContato(Scanner userInput){
+        System.out.println("[ MENU DE ALTERAÇÃO ]");
+        System.out.print("Insira o nome do contato que deseja alterar: ");
+        String nome = userInput.nextLine();
     }
 }
 
