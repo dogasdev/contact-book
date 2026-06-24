@@ -13,12 +13,17 @@ public class ContatoTelefonico extends Contato{
         return Validacao.formatarTelefone(this.telefone);
     }
 
+    public void setTelefone(String novoDado){
+        this.telefone = novoDado;
+    }
+
     public String getTipo(){
         return "Telefone";
     }
 
+    @Override
     public String toString(){
-        return String.format("%s | %s: %s", getNome(), getTipo(), getTelefone());
+        return String.format(" %d | %s | %s: %s", getID(), getNome(), getTipo(), getTelefone());
     }
 
 }
