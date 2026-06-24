@@ -12,11 +12,16 @@ public class ContatoEmail extends Contato{
         return email;
     }
 
+    public void setEmail(String novoDado){
+        this.email = novoDado;
+    }
+
     public String getTipo(){
         return "Email";
     }
 
+    @Override
     public String toString(){
-        return String.format("%s | %s: %s", getNome(), getTipo(), getEmail());
+        return String.format(" %d | %s | %s: %s", getID(), getNome(), getTipo(), getEmail());
     }
 }
