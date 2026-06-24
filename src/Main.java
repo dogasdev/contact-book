@@ -48,6 +48,9 @@ public class Main {
             case 4:
                 buscarContato(userInput);
                 break;
+            case 5:
+                exibirModificarContato(userInput);
+                break;
         }
     }
 
@@ -110,8 +113,8 @@ public class Main {
         List<Contato> contatosEncontrados = agenda.buscarContatosPorNome(agenda.getListaContatos(), nome);
         if(contatosEncontrados != null && !contatosEncontrados.isEmpty()){
             System.out.println("[ CONTATOS ENCONTRADOS ]");
-            for(int i = 0; i < contatosEncontrados.size(); i++) {
-                System.out.println(contatosEncontrados.get(i));
+            for(Contato contato : contatosEncontrados){
+                System.out.println(contato);
             }
         }else{
             System.out.println("Nenhum contato encontrado.");
@@ -119,9 +122,68 @@ public class Main {
     }
 
     public static void exibirModificarContato(Scanner userInput){
+
         System.out.println("[ MENU DE ALTERAÇÃO ]");
-        System.out.print("Insira o nome do contato que deseja alterar: ");
-        String nome = userInput.nextLine();
+        System.out.print("Insira o nome do contato que deseja alterar: \n");
+        String nome = userInput.nextLine().toUpperCase().trim();
+
+        List<Contato> contatosEncontrados = agenda.buscarContatosPorNome(agenda.getListaContatos(), nome);
+
+        if(contatosEncontrados.isEmpty()){
+            System.out.println("Nenhum contato cadastrado na agenda!");
+            return;
+        }
+
+        Contato contato;
+
+        if(contatosEncontrados.size() == 1){
+            contato = contatosEncontrados.getFirst();
+        }else{
+            System.out.print("Foram encontrados mais de um contato com o mesmo nome. Insira o ID correspondente para escolher qual modificar: ");
+
+            for(Contato contatoEnc : contatosEncontrados){
+                System.out.println(contatoEnc);
+            }
+
+            int id = Integer.parseInt(userInput.nextLine());
+            contato = agenda.buscarContatoEncontradoPorId(contatosEncontrados, id);
+
+            if(contato == null){
+                System.out.println("Contato não encontrado!");
+                return;
+            }else{
+                System.out.println("Contato escolhido: " + contato);
+            }
+        }
+
+        System.out.println("CONTATO: " + contato);
+        System.out.println("[1] Nome \n[2] Dado do contato \n[3] Ambos");
+        int opcao = Integer.parseInt(userInput.nextLine());
+
+        String novoNome = null;
+        String novoDado = null;
+
+        switch (opcao){
+            case 1:
+                System.out.println("Novo nome: ");
+                novoNome = userInput.nextLine();
+                break;
+            case 2:
+                System.out.println("Novo dado (Telefone ou E-mail): ");
+                novoDado = userInput.nextLine();
+                break;
+            case 3:
+                System.out.println("Novo nome: ");
+                novoNome = userInput.nextLine();
+
+                System.out.println("Novo dado (Telefone ou E-mail): ");
+                novoDado = userInput.nextLine();
+                break;
+            default:
+                System.out.println("Opção inválida!");
+                return;
+        }
+        agenda.modificarContato(contato, opcao, novoNome, novoDado);
     }
 }
 
