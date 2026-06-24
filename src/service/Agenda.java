@@ -44,10 +44,10 @@ public class Agenda {
         }
     }
 
-    public List<Contato> buscarContatosPorNome(List<Contato> listaDeContatos, String nome){
-        if(!listaDeContatos.isEmpty()){
+    public List<Contato> buscarContatosPorNome(List<Contato> listaContatos, String nome){
+        if(!listaContatos.isEmpty()){
             List<Contato> contatosEncontrados = new ArrayList<>();
-            for(Contato contato : listaDeContatos){
+            for(Contato contato : listaContatos){
                 if(contato.getNome().equalsIgnoreCase(nome)){
                     contatosEncontrados.add(contato);
                 }
@@ -57,8 +57,47 @@ public class Agenda {
         return null;
     }
 
-    public void modificarContato(List<Contato> listaContatos){
 
+    public Contato buscarContatoEncontradoPorId(List<Contato> contatosEncontrados, int id){
+        if(!contatosEncontrados.isEmpty()){
+            for(Contato contato : contatosEncontrados){
+                if(contato.getID() == id){
+                    return contato;
+                }
+            }
+        }
+        return null;
+    }
+
+    public void modificarContato(Contato contato, int opcao, String novoNome, String novoDado){
+        switch(opcao){
+            case 1:
+                contato.setNome(novoDado);
+                break;
+            case 2:
+                if(contato instanceof ContatoTelefonico){
+                    ContatoTelefonico contatoTele = (ContatoTelefonico) contato;
+                    contatoTele.setTelefone(novoDado);
+                }else if(contato instanceof ContatoEmail){
+                    ContatoEmail contatoEm = (ContatoEmail) contato;
+                    contatoEm.setEmail(novoDado);
+                }
+                break;
+            case 3:
+                contato.setNome(novoNome);
+
+                if(contato instanceof ContatoTelefonico){
+                    ContatoTelefonico contatoTele = (ContatoTelefonico) contato;
+                    contatoTele.setTelefone(novoDado);
+                }else if(contato instanceof ContatoEmail){
+                    ContatoEmail contatoEmail = (ContatoEmail) contato;
+                    contatoEmail.setEmail(novoDado);
+                }
+                break;
+            default:
+                System.out.println("Opção inválida, tente novamente!");
+                return;
+        }
     }
 }
 
