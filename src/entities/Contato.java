@@ -17,4 +17,8 @@ abstract public class Contato{
     public Integer getID() {
         return ID;
     }
+
+    public void setNome(String novoNome){
+        this.nome = novoNome;
+    }
 }
