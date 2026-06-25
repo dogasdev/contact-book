@@ -36,8 +36,8 @@ public class Agenda {
 
     public void listarContatos() {
         if (!listaContatos.isEmpty()) {
-            for (Contato cont : listaContatos) {
-                System.out.println((cont.getID()) + " | " + cont);
+            for (Contato contato : listaContatos) {
+                System.out.println(contato);
             }
         } else {
             System.out.println("Nenhum contato cadastrado!");
@@ -48,7 +48,7 @@ public class Agenda {
         if(!listaContatos.isEmpty()){
             List<Contato> contatosEncontrados = new ArrayList<>();
             for(Contato contato : listaContatos){
-                if(contato.getNome().equalsIgnoreCase(nome)){
+                if(contato.getNome() != null && contato.getNome().equalsIgnoreCase(nome)){
                     contatosEncontrados.add(contato);
                 }
             }
@@ -72,7 +72,9 @@ public class Agenda {
     public void modificarContato(Contato contato, int opcao, String novoNome, String novoDado){
         switch(opcao){
             case 1:
-                contato.setNome(novoDado);
+                if(novoNome != null && !novoNome.trim().isEmpty()){
+                    contato.setNome(novoNome);
+                }
                 break;
             case 2:
                 if(contato instanceof ContatoTelefonico){
@@ -98,6 +100,10 @@ public class Agenda {
                 System.out.println("Opção inválida, tente novamente!");
                 return;
         }
+    }
+
+    public boolean deletarContato(int id){
+        return listaContatos.removeIf(contato -> contato.getID() == id);
     }
 }
 

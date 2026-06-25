@@ -21,7 +21,15 @@ public class Validacao {
     }
 
     public static String formatarTelefone(String telefone){
+        if(telefone == null){
+            throw new IllegalArgumentException("Telefone inválido");
+
+        }
         telefone = telefone.replaceAll("\\D", "");
+
+        if (telefone.length() != 10 && telefone.length() != 11){
+            throw new IllegalArgumentException("Telefone inválido");
+        }
 
         String ddd = telefone.substring(0, 2);
         String sufix = telefone.substring(2);
@@ -29,9 +37,7 @@ public class Validacao {
             sufix = "9" + sufix;
         }
 
-        telefone = String.format("(%s) %s-%s", //DDD, NONO DIGITO, PRIMEIRO SUFIXO, SEGUNDO SUFIXO
-                ddd, sufix.substring(0, 5), sufix.substring(5));
-
+        telefone = String.format("(%s) %s-%s", ddd, sufix.substring(0, 5), sufix.substring(5)); //DDD, NONO DIGITO, PRIMEIRO SUFIXO, SEGUNDO SUFIXO
         return telefone;
     }
 

@@ -1,5 +1,7 @@
 package entities;
 
+import util.Validacao;
+
 public class ContatoEmail extends Contato{
     private String email;
 
@@ -12,8 +14,12 @@ public class ContatoEmail extends Contato{
         return email;
     }
 
-    public void setEmail(String novoDado){
-        this.email = novoDado;
+    public void setEmail(String email){
+        if(email != null && Validacao.isValidEmail(email)){
+            this.email = email;
+        }else{
+            System.out.println("Telefone inválido!");
+        }
     }
 
     public String getTipo(){

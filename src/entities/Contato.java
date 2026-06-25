@@ -19,6 +19,8 @@ abstract public class Contato{
     }
 
     public void setNome(String novoNome){
-        this.nome = novoNome;
+        if(nome != null && !nome.trim().isEmpty()){
+            this.nome = novoNome;
+        }
     }
 }

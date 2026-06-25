@@ -13,8 +13,11 @@ public class ContatoTelefonico extends Contato{
         return Validacao.formatarTelefone(this.telefone);
     }
 
-    public void setTelefone(String novoDado){
-        this.telefone = novoDado;
+    public void setTelefone(String telefone){
+        if(telefone != null && Validacao.validarTelefone(telefone)){
+            this.telefone = telefone;
+        }
+        System.out.println("Telefone inválido!");
     }
 
     public String getTipo(){
