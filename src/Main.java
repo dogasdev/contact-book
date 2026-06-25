@@ -13,29 +13,29 @@ public class Main {
         int opcao;
         Scanner userInput = new Scanner(System.in);
 
-        do{
+        do {
             exibirMenu();
             opcao = lerOpcao(userInput);
             processarOpcao(opcao, userInput);
-        }while(opcao != 7);
+        } while (opcao != 7);
     }
 
-    public static void exibirMenu(){
+    public static void exibirMenu() {
         System.out.println("=== AGENDA ===");
         System.out.println("[1] Criar novo contato\n[2] Listar contatos \n[3] Relatório de Contatos\n[4] Procurar contato\n[5] Atualizar contato\n[6] Deletar contato\n[7] Sair");
         System.out.print("Insira uma opção: \n");
     }
 
-    public static int lerOpcao(Scanner userInput){
-        try{
+    public static int lerOpcao(Scanner userInput) {
+        try {
             return Integer.parseInt(userInput.nextLine());
-        }catch (Exception e){
+        } catch (Exception e) {
             return 0;
         }
     }
 
-    public static void processarOpcao(int opcao, Scanner userInput){
-        switch(opcao){
+    public static void processarOpcao(int opcao, Scanner userInput) {
+        switch (opcao) {
             case 1:
                 exibirCadastro(userInput);
                 break;
@@ -51,14 +51,17 @@ public class Main {
             case 5:
                 exibirModificarContato(userInput);
                 break;
+            case 6:
+                exibirDeletarContato(userInput);
+                break;
         }
     }
 
-    public static void exibirCadastro(Scanner userInput){
+    public static void exibirCadastro(Scanner userInput) {
         System.out.println("[ INSIRA AS INFORMAÇÕES DO CONTATO ]");
         System.out.print("Nome: ");
         String nome = userInput.nextLine().toUpperCase().trim();
-        while(!Validacao.validarNome(nome)){
+        while (!Validacao.validarNome(nome)) {
             System.out.println("Nome inválido! Tente novamente: ");
             nome = userInput.nextLine().toUpperCase().trim();
         }
@@ -66,14 +69,14 @@ public class Main {
 
         System.out.println("Tipo de Contato -- [1] Telefone [2] E-mail");
         int tipo = Integer.parseInt(userInput.nextLine());
-        if(tipo == 1){
+        if (tipo == 1) {
             System.out.print("Telefone: ");
             String telefone = userInput.nextLine();
-            while(!Validacao.validarTelefone(telefone)){
+            while (!Validacao.validarTelefone(telefone)) {
                 System.out.println("Número inválido! Tente novamente: ");
                 telefone = userInput.nextLine();
             }
-            while(Validacao.telefoneExists(agenda.getListaContatos(), telefone)){
+            while (Validacao.telefoneExists(agenda.getListaContatos(), telefone)) {
                 System.out.println("Número de telefone já cadastrado! Tente novamente: ");
                 telefone = userInput.nextLine();
             }
@@ -81,14 +84,14 @@ public class Main {
 
             agenda.cadastrarContato(contato);
             System.out.print("Contato cadastrado com sucesso!\n\n");
-        }else{
+        } else {
             System.out.print("E-mail: ");
             String email = userInput.nextLine();
-            while(!Validacao.isValidEmail(email)){
+            while (!Validacao.isValidEmail(email)) {
                 System.out.println("E-mail inválido! Tente novamente: ");
                 email = userInput.nextLine();
             }
-            while(Validacao.emailExists(agenda.getListaContatos(), email)){
+            while (Validacao.emailExists(agenda.getListaContatos(), email)) {
                 System.out.println("E-mail já cadastrado! Tente novamente:");
                 email = userInput.nextLine();
             }
@@ -98,60 +101,59 @@ public class Main {
         }
     }
 
-    public static void exibirContatos(){
+    public static void exibirContatos() {
         agenda.listarContatos();
     }
 
-    public static void exibirRelatorio(){
+    public static void exibirRelatorio() {
         agenda.relatorioContatos();
     }
 
-    public static void buscarContato(Scanner userInput){
+    public static void buscarContato(Scanner userInput) {
         System.out.print("Insira o nome do contato que deseja procurar: ");
         String nome = userInput.nextLine().toUpperCase();
 
         List<Contato> contatosEncontrados = agenda.buscarContatosPorNome(agenda.getListaContatos(), nome);
-        if(contatosEncontrados != null && !contatosEncontrados.isEmpty()){
+        if (contatosEncontrados != null && !contatosEncontrados.isEmpty()) {
             System.out.println("[ CONTATOS ENCONTRADOS ]");
-            for(Contato contato : contatosEncontrados){
+            for (Contato contato : contatosEncontrados) {
                 System.out.println(contato);
             }
-        }else{
+        } else {
             System.out.println("Nenhum contato encontrado.");
         }
     }
 
-    public static void exibirModificarContato(Scanner userInput){
+    public static void exibirModificarContato(Scanner userInput) {
 
         System.out.println("[ MENU DE ALTERAÇÃO ]");
         System.out.print("Insira o nome do contato que deseja alterar: \n");
-        String nome = userInput.nextLine().toUpperCase().trim();
+        String nome = userInput.nextLine().trim();
 
         List<Contato> contatosEncontrados = agenda.buscarContatosPorNome(agenda.getListaContatos(), nome);
 
-        if(contatosEncontrados.isEmpty()){
+        if (contatosEncontrados.isEmpty()) {
             System.out.println("Nenhum contato cadastrado na agenda!");
             return;
         }
 
         Contato contato;
 
-        if(contatosEncontrados.size() == 1){
+        if (contatosEncontrados.size() == 1) {
             contato = contatosEncontrados.getFirst();
-        }else{
-            System.out.print("Foram encontrados mais de um contato com o mesmo nome. Insira o ID correspondente para escolher qual modificar: ");
-
-            for(Contato contatoEnc : contatosEncontrados){
+        } else {
+            for (Contato contatoEnc : contatosEncontrados) {
                 System.out.println(contatoEnc);
             }
-
+            System.out.println("[!] Foram encontrados mais de um contato com o mesmo nome. Insira o ID correspondente para escolher qual modificar: ");
             int id = Integer.parseInt(userInput.nextLine());
+
             contato = agenda.buscarContatoEncontradoPorId(contatosEncontrados, id);
 
-            if(contato == null){
+            if (contato == null) {
                 System.out.println("Contato não encontrado!");
                 return;
-            }else{
+            } else {
                 System.out.println("Contato escolhido: " + contato);
             }
         }
@@ -163,7 +165,7 @@ public class Main {
         String novoNome = null;
         String novoDado = null;
 
-        switch (opcao){
+        switch (opcao) {
             case 1:
                 System.out.println("Novo nome: ");
                 novoNome = userInput.nextLine();
@@ -184,6 +186,54 @@ public class Main {
                 return;
         }
         agenda.modificarContato(contato, opcao, novoNome, novoDado);
+    }
+
+    public static void exibirDeletarContato(Scanner userInput){
+        System.out.println("[ MENU DE DELEÇÃO ]");
+        System.out.println("Insira o nome do contato que deseja deletar: ");
+        String nome = userInput.nextLine();
+
+        List<Contato> contatoEncontrados = agenda.buscarContatosPorNome(agenda.getListaContatos(), nome);
+
+        if(contatoEncontrados.isEmpty()){
+            System.out.println("[!] Contato não encontrado");
+            return;
+        }
+
+        Contato contato;
+
+        if(contatoEncontrados.size() == 1){
+            contato = contatoEncontrados.getFirst();
+        }else{
+            for(Contato contatoEnc : contatoEncontrados){
+                System.out.println(contatoEnc);
+            }
+            System.out.println("[!] Foram encontrados mais de um contato com esse nome. Insira o ID correspondente para selecionar o contato: ");
+            int id = Integer.parseInt(userInput.nextLine());
+
+            contato = agenda.buscarContatoEncontradoPorId(contatoEncontrados, id);
+
+            if(contato == null){
+                System.out.println("[!] Contato não encontrado");
+                return;
+            }
+        }
+
+        System.out.println("Contato selecionado: " + contato);
+        System.out.println("Deseja deletar este contato? (s/sim)");
+        String resposta = userInput.nextLine();
+
+        if(resposta.equalsIgnoreCase("sim") || resposta.equalsIgnoreCase("s")){
+            boolean contatoDeletado = agenda.deletarContato(contato.getID());
+
+            if(contatoDeletado){
+                System.out.println("Contato deletado com sucesso!");
+            }else{
+                System.out.println("Não foi possível deletar o contato.");
+            }
+        }else{
+            System.out.println("Operação cancelada!");
+        }
     }
 }
 
