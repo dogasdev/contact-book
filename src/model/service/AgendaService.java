@@ -1,8 +1,9 @@
-package service;
+package model.service;
 
-import entities.Contact;
-import entities.ContactEmail;
-import entities.ContactTelephone;
+import model.entities.Contact;
+import model.entities.ContactEmail;
+import model.entities.ContactTelephone;
+import model.exceptions.InvalidDataException;
 import util.Validation;
 
 import java.util.ArrayList;
@@ -72,48 +73,34 @@ public class AgendaService {
         return null;
     }
 
-    public void updateEmail(ContactEmail contactEmail, int opcao, String novoNome, String newEmail){
-        contactEmail.setEmail(newEmail);
-    }
 
-    public void updatePhone(ContactTelephone contactPhone, int opcao, String novoNome, String newPhone){
-        contactPhone.setTelephone(newPhone);
-    }
-
-    public void updateContact(Contact contact, int opcao, String newName, String newData) {
+    public void updateContact(Contact contact, int opcao, String newName, String newData) throws InvalidDataException{
         switch (opcao) {
             case 1 ->{
-                if(Validation.validateName(newName)){
-                    contact.setName(newName);
+                if(!Validation.validateName(newName)){
+                    throw new InvalidDataException("Operação cancelada! Nome inválido!");
+                }
+                contact.setName(newName);
+            }
+            case 2 -> contact.updateData(newData);
+
+            case 3 -> {
+                try{
+                    if(!Validation.validateName(newName)){
+                        throw new InvalidDataException("Operação cancelada! Nome inválido!");
+                    }
+                    contact.updateData(newData);
+                    contact.setName(newData);
+                }catch(InvalidDataException e){
+                    throw new InvalidDataException("Operação cancelada: dado de contato inválido!");
                 }
             }
-            case 2 ->{
-                if(contact instanceof ContactTelephone contactTelephone){
-                    updatePhone(contactTelephone, opcao, newName, newData);
-                }
-
-                if (contact instanceof ContactTelephone contactTelephone) {
-                    contactTelephone.setTelephone(newData);
-                } else if (contact instanceof ContactEmail contactEmail) {
-                    contactEmail.setEmail(newData);
-                }
-            }
-            case 3 ->{
-                contact.setName(newData);
-
-                if (contact instanceof ContactTelephone contactTelephone) {
-                    contactTelephone.setTelephone(newData);
-                }else if (contact instanceof ContactEmail contactEmail) {
-                    contactEmail.setEmail(newData);
-                }
-            }
-
             default -> System.out.println("Opção inválida, tente novamente!");
         }
     }
 
     public boolean deleteContact(int id) {
-        return contactList.removeIf(contato -> contato.getID() == id);
+        return contactList.removeIf(contact -> contact.getID() == id);
     }
 }
 

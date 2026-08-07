@@ -1,5 +1,6 @@
-package entities;
+package model.entities;
 
+import model.exceptions.InvalidDataException;
 import util.Validation;
 
 public class ContactTelephone extends Contact {
@@ -14,15 +15,20 @@ public class ContactTelephone extends Contact {
         return Validation.formatTelephone(this.telephone);
     }
 
-    public void setTelephone(String telephone) {
+    public void setTelephone(String telephone) throws InvalidDataException{
         if (telephone != null && Validation.validatePhone(telephone)) {
             this.telephone = telephone;
         }
-        System.out.println("Telefone inválido!");
+        throw new InvalidDataException("Telefone inválido!");
     }
 
     public String getType() {
         return "Telefone";
+    }
+
+    @Override
+    public void updateData(String newData) throws InvalidDataException {
+        setTelephone(newData);
     }
 
     @Override

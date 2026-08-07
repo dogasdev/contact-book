@@ -1,8 +1,8 @@
 package util;
 
-import entities.Contact;
-import entities.ContactEmail;
-import entities.ContactTelephone;
+import model.entities.Contact;
+import model.entities.ContactEmail;
+import model.entities.ContactTelephone;
 
 import java.util.List;
 

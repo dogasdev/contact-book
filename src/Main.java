@@ -1,7 +1,8 @@
-import entities.Contact;
-import entities.ContactEmail;
-import entities.ContactTelephone;
-import service.AgendaService;
+import model.entities.Contact;
+import model.entities.ContactEmail;
+import model.entities.ContactTelephone;
+import model.exceptions.InvalidDataException;
+import model.service.AgendaService;
 import util.Validation;
 
 import java.util.List;
@@ -117,7 +118,7 @@ public class Main {
         }
     }
 
-    public static void showModifyContact(Scanner userInput) {
+    public static void showModifyContact(Scanner userInput){
 
         System.out.println("[ MENU DE ALTERAÇÃO ]");
         System.out.print("Insira o nome do contato que deseja alterar: \n");
@@ -152,7 +153,7 @@ public class Main {
         }
 
         System.out.println("CONTATO: " + contact);
-        System.out.println("[1] Nome \n[2] Dado do contato \n[3] Ambos");
+        System.out.println("[1] Nome \n[2] Dado do contato \n[3] Ambos os dados");
         int option = Integer.parseInt(userInput.nextLine());
 
         String newName = null;
@@ -178,7 +179,12 @@ public class Main {
                 System.out.println("Opção inválida!");
                 return;
         }
-        agenda.updateContact(contact, option, newName, newData);
+        try{
+            agenda.updateContact(contact, option, newName, newData);
+        }catch(InvalidDataException e){
+            System.out.println(e.getMessage());
+        }
+
     }
 
     public static void displayDeleteContact(Scanner userInput) {

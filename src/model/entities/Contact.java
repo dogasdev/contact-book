@@ -1,4 +1,6 @@
-package entities;
+package model.entities;
+
+import model.exceptions.InvalidDataException;
 
 abstract public class Contact {
     private static int counterId = 1;
@@ -23,4 +25,6 @@ abstract public class Contact {
             this.name = newName;
         }
     }
+
+    public abstract void updateData(String newData) throws InvalidDataException;
 }

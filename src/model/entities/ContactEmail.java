@@ -1,5 +1,6 @@
-package entities;
+package model.entities;
 
+import model.exceptions.InvalidDataException;
 import util.Validation;
 
 public class ContactEmail extends Contact {
@@ -14,16 +15,21 @@ public class ContactEmail extends Contact {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(String email) throws InvalidDataException{
         if (email != null && Validation.isValidEmail(email)) {
             this.email = email;
         } else {
-            System.out.println("Email inválido!");
+            throw new InvalidDataException("E-mail inválido!");
         }
     }
 
     public String getType() {
         return "Email";
+    }
+
+    @Override
+    public void updateData(String newData) throws InvalidDataException {
+        setEmail(newData);
     }
 
     @Override
